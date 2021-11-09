@@ -33,29 +33,31 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
-		//String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-		String mensagemUsuario = "Mensagem invalida";
+		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDev = ex.getCause().toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDev));
 		return  handleExceptionInternal(ex,erros, headers, status, request);
 	}
 
-	
-	@Override
+		@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		List<Erro> erros = criarListaDeErros(ex.getBindingResult());
-		return  handleExceptionInternal(ex,erros, headers, status, request);
+		return handleExceptionInternal(ex,erros, headers, status, request);
 	}
-
+		
+		
 	private List<Erro> criarListaDeErros(BindingResult bindingResult){
+		
 		List<Erro> erros = new ArrayList<>();
 		
 		for (FieldError fieldError: bindingResult.getFieldErrors()) {
 			
 			String mensagemUsuario = "Mensagem invalida";
 			String mensagemDev = fieldError.toString();
+			
+			erros.add(new Erro(mensagemUsuario,mensagemDev));
 		}
 		
 		return erros;
