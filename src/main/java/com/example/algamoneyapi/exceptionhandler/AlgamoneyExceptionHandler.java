@@ -35,11 +35,11 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDev = ex.getCause().toString();
-		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDev));
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
 		return  handleExceptionInternal(ex,erros, headers, status, request);
 	}
 
-		@Override
+	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
@@ -54,7 +54,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		for (FieldError fieldError: bindingResult.getFieldErrors()) {
 			
-			String mensagemUsuario = "Mensagem invalida";
+			String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
 			String mensagemDev = fieldError.toString();
 			
 			erros.add(new Erro(mensagemUsuario,mensagemDev));
