@@ -1,0 +1,38 @@
+package com.example.algamoneyapi.service;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.example.algamoneyapi.model.Pessoa;
+import com.example.algamoneyapi.repository.PessoaRepository;
+
+@Service
+public class PessoaService {
+
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
+		
+		Pessoa pessoalSalva = buscarPessoaPeloCodigo(codigo);
+		BeanUtils.copyProperties(pessoa, pessoalSalva,"codigo");
+		return pessoaRepository.save(pessoalSalva);
+	}
+
+	
+	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+		Pessoa pessoalSalva = buscarPessoaPeloCodigo(codigo);
+		pessoalSalva.setAtivo(ativo);
+		pessoaRepository.save(pessoalSalva);
+	}
+	
+	private Pessoa buscarPessoaPeloCodigo(Long codigo) {
+		Pessoa pessoalSalva = pessoaRepository.findById(codigo).orElse(null);
+		if(pessoalSalva == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return pessoalSalva;
+	}
+}

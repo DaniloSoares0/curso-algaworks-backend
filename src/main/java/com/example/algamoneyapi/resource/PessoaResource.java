@@ -1,7 +1,6 @@
 package com.example.algamoneyapi.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.algamoneyapi.event.RecursoCriadoEvent;
 import com.example.algamoneyapi.model.Pessoa;
 import com.example.algamoneyapi.repository.PessoaRepository;
+import com.example.algamoneyapi.service.PessoaService;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -33,6 +33,9 @@ public class PessoaResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@Autowired
+	private PessoaService pessoaService;
 	
 	@GetMapping
 	public List<Pessoa> listar(){
@@ -47,8 +50,9 @@ public class PessoaResource {
 	}
 	
 	@GetMapping("/{codigo}")
-	public Optional<Pessoa> buscarPeloId(@PathVariable Long id){
-		return pessoaRepository.findById(id);
+	public ResponseEntity<Pessoa> buscarPeloId(@PathVariable Long codigo){
+		 Pessoa pessoa = pessoaRepository.findById(codigo).orElse(null);
+		 return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{codigo}")
@@ -59,8 +63,13 @@ public class PessoaResource {
 	
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
-		// Pessoa pessoaSalva = pe
-		return null;
+		return ResponseEntity.ok(pessoaService.atualizar(codigo,pessoa));
+	}
+	
+	@PutMapping("/{codigo}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+		pessoaService.atualizarPropriedadeAtivo(codigo,ativo);
 	}
 	
 }
