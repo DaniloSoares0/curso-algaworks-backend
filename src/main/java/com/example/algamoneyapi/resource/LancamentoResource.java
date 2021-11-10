@@ -24,6 +24,7 @@ import com.example.algamoneyapi.event.RecursoCriadoEvent;
 import com.example.algamoneyapi.exceptionhandler.AlgamoneyExceptionHandler.Erro;
 import com.example.algamoneyapi.model.Lancamento;
 import com.example.algamoneyapi.repository.LancamentoRepository;
+import com.example.algamoneyapi.repository.filter.LancamentoFilter;
 import com.example.algamoneyapi.service.LancamentoService;
 import com.example.algamoneyapi.service.exception.PessoaInexistenteOuInativaException;
 
@@ -38,15 +39,15 @@ public class LancamentoResource {
 	private ApplicationEventPublisher publisher;
 	
 	@Autowired
-	LancamentoService lancamentoService;
+	private LancamentoService lancamentoService;
 	
 	@Autowired
 	private MessageSource messageSource;
 
 
 	@GetMapping
-	public List<Lancamento> listar(){
-		return lancamentoRepository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lacamentoFilter){
+		return lancamentoRepository.filtrar(lacamentoFilter);
 	}
 
 	@GetMapping("/{codigo}")
@@ -64,11 +65,9 @@ public class LancamentoResource {
 	
 	@ExceptionHandler({PessoaInexistenteOuInativaException.class})
 	public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException ex){
-		
 		String mensagemUsuario = messageSource.getMessage("pessoa.inexistenteOuInativa", null, LocaleContextHolder.getLocale());
 		String mensagemDev =  ex.getCause() != null ? ex.getCause().toString(): ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
-		
 		return ResponseEntity.badRequest().body(erros);
 	}
 	
