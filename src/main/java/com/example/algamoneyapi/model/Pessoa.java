@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(of="codigo")
 @Table(name="pessoa")
 public class Pessoa {
 
