@@ -42,22 +42,22 @@ public class PessoaResource {
 	@PostMapping
 	public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getId()));
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/{codigo}")
 	public Optional<Pessoa> buscarPeloId(@PathVariable Long id){
 		return pessoaRepository.findById(id);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		 pessoaRepository.deleteById(codigo);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
 		// Pessoa pessoaSalva = pe
 		return null;

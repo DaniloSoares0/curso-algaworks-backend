@@ -12,3 +12,6 @@ spring:
 
  jackson:    deserialization:      fail-on-unknown-properties: true 
       
+ #flyway:
+   #  baselineOnMigrate: true se ja houvessem tabelas
+

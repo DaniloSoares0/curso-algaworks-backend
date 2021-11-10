@@ -22,7 +22,7 @@ public class Pessoa {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long codigo;
 	
 	@NotNull
 	@Size(min=2, max=30)
