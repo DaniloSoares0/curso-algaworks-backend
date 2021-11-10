@@ -15,3 +15,10 @@ spring:
  #flyway:
    #  baselineOnMigrate: true se ja houvessem tabelas
 
+ security:
+  oauth2:
+   resourceserver:
+    opaquetoken:
+     introspection-uri: http://localhost:8080/oauth/check_token
+     client-id: angular
+     client-secret: agul@r0
