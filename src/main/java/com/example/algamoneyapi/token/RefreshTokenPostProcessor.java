@@ -22,7 +22,7 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 		// TODO Auto-generated method stub
-		return returnType.getMethod().getName().equals("PostAcessToken");
+		return returnType.getMethod().getName().equals("postAccessToken");
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
 		
 		removerRefreshTokenDoBody(token);
 		
-		return null;
+		return body;
 	}
 
 	private void removerRefreshTokenDoBody(DefaultOAuth2AccessToken token) {
