@@ -21,4 +21,4 @@ spring:
     opaquetoken:
      introspection-uri: http://localhost:8080/oauth/check_token
      client-id: angular
-     client-secret: agul@r0
+     client-secret: angul@r0
