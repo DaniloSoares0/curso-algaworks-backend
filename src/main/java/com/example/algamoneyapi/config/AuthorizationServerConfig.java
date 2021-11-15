@@ -45,10 +45,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		//TEM QUE SER AS MESMAS DO POSTMAN. NO POSTMAN SERÁ CONFIGURADO UM POST COM ESTA URL localhost:8080/oauth/token
 		//AUTHORIZATION TYPE BASIC AUTH USERNAME angular PASSWORD linha debaixo secret. Será então gerado um token
 		.withClient("angular")
-		.secret(passwordEncoder.encode("angul@r0")) // @ngul@r0
+		.secret(passwordEncoder.encode("@ngul@r0"))
 		.scopes("read", "write")
 		.authorizedGrantTypes("password", "refresh_token")
-		.accessTokenValiditySeconds(20)
+		.accessTokenValiditySeconds(1800)
 		.refreshTokenValiditySeconds(3600 * 24);
 	/*	.and()
 		.withClient("mobile")
@@ -56,6 +56,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.scopes("read")
 		.authorizedGrantTypes("password")
 		.accessTokenValiditySeconds(1800);*/
+
 	}
 
 	@Override
@@ -70,9 +71,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
+		
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
 
-		accessTokenConverter.setSigningKey("3032885ba9cd6621bcc4e7d6b6c35c2b");
+		accessTokenConverter.setSigningKey("algaworks");
 
 		return accessTokenConverter;
 	}

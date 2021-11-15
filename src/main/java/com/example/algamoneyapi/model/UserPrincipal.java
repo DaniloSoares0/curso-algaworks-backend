@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserPrincipal  implements UserDetails{
+public class UserPrincipal implements UserDetails{
 
 	private static final long serialVersionUID = -4998356362045184911L;
 
-	private User user;
+	private Usuario user;
 
-	public UserPrincipal(User user) {
+	public UserPrincipal(Usuario user) {
 		this.user = user;
 	}
 
@@ -25,14 +25,14 @@ public class UserPrincipal  implements UserDetails{
 
 	@Override
 	public String getPassword() {
+		return null;
 		// TODO Auto-generated method stub
-		return this.user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
+		return null;
 		// TODO Auto-generated method stub
-		return this.user.getUsername();
 	}
 
 	@Override

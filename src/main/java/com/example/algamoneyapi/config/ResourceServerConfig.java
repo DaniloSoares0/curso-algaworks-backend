@@ -18,12 +18,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -33,26 +30,29 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @EnableWebSecurity
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter   {
      
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
     @Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-		.inMemoryAuthentication()
+    	
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		
+		/*.inMemoryAuthentication()
 		.withUser("admin")
 		.password("admin")
-		.roles("ROLE");
+		.roles("ROLE");*/
 	}
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         
-        http.authorizeRequests()
-                .antMatchers("/categorias").permitAll()
-                .anyRequest().authenticated()
-            .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-                .csrf().disable()
-                .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+    	http.authorizeRequests()
+		.antMatchers("/categorias").permitAll()
+		.anyRequest().authenticated()
+		.and()
+	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+	.csrf().disable();
     }
 
     
@@ -71,7 +71,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter   {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
         
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
@@ -95,6 +95,5 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter   {
 
 		return jwtAuthenticationConverter;
 	}
-    
     
 }

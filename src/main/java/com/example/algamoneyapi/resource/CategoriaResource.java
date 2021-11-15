@@ -22,6 +22,7 @@ import com.example.algamoneyapi.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categorias")
+//@CrossOrigin(maxAge = 10, origins = {"http://localhost:8080"}) //origens permitidas
 public class CategoriaResource {
 	
 	@Autowired
@@ -29,6 +30,7 @@ public class CategoriaResource {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
 	
 	@GetMapping
 	public List<Categoria> listar(){
