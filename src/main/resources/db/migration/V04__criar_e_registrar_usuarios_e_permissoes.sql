@@ -1,16 +1,16 @@
-CREATE TABLE usuario (
+CREATE TABLE IF NOT EXISTS usuario (
 	codigo BIGINT(20) PRIMARY KEY,
 	nome VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	senha VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE permissao (
+CREATE TABLE IF NOT EXISTS permissao (
 	codigo BIGINT(20) PRIMARY KEY,
 	descricao VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE usuario_permissao (
+CREATE TABLE IF NOT EXISTS usuario_permissao (
 	codigo_usuario BIGINT(20) NOT NULL,
 	codigo_permissao BIGINT(20) NOT NULL,
 	PRIMARY KEY (codigo_usuario, codigo_permissao),

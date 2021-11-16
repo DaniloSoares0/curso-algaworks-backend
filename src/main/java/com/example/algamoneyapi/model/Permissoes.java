@@ -9,12 +9,13 @@ import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Builder
-@Table(name="permissoes")
+@Table(name="permissao")
 @EqualsAndHashCode(of = "codigo")
+@NoArgsConstructor
 public class Permissoes {
 	
 	@Id
