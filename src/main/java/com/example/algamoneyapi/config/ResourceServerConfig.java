@@ -32,8 +32,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ResourceServerConfig extends WebSecurityConfigurerAdapter   {
-     
+public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
+  /*   
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -42,22 +42,24 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter   {
     	
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		
-		/*.inMemoryAuthentication()
+		.inMemoryAuthentication()
 		.withUser("admin")
 		.password("admin")
-		.roles("ROLE");*/
-	}
-
+		.roles("ROLE");
+	} 
+*/
     @Override
     public void configure(HttpSecurity http) throws Exception {
         
-	    	http.authorizeRequests()
-			.antMatchers("/categorias").permitAll()
-			.anyRequest().authenticated()
-			.and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-		.csrf().disable();
-	    	
+	        http.authorizeRequests()
+	        .antMatchers("/categorias").permitAll()
+	        .anyRequest().authenticated()
+	    .and()
+	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	    .and()
+	        .csrf().disable()
+	        .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+		    	
     }
 
     
