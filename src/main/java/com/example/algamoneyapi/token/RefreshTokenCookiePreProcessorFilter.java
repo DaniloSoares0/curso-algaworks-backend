@@ -19,7 +19,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE) //colocando novo token e cookie para evitar js
 public class RefreshTokenCookiePreProcessorFilter implements Filter{
 
 	@Override
