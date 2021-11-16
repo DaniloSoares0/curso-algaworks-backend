@@ -18,10 +18,9 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class RefreshTokienCookiePreProcessorFilter implements Filter{
+public class RefreshTokenCookiePreProcessorFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

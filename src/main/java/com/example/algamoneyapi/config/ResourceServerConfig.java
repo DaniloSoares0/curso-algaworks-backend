@@ -99,6 +99,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 					.collect(Collectors.toList()));
 
 			return grantedAuthorities;
+			
 		});
 
 		return jwtAuthenticationConverter;
