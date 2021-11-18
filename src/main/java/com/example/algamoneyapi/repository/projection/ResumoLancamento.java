@@ -24,11 +24,10 @@ public class ResumoLancamento {
 
 	private BigDecimal valor;
 
-	private String observacao;
-
 	private TipoLancamento tipo;
 
 	private String categoria;
 
 	private String pessoa;
+	
 }

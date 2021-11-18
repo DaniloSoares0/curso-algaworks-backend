@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEvent;
 import lombok.Getter;
 
 @Getter
-public class RecursoCriadoEvent extends ApplicationEvent{
+public class RecursoCriadoEvent extends ApplicationEvent {
 
 	private static final long serialVersionUID = -7415091831785546983L;
 
