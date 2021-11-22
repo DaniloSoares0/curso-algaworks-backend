@@ -12,9 +12,9 @@ spring:
 
  jackson:    deserialization:      fail-on-unknown-properties: true 
       
-      
+ profiles:    active: oauth-security    
 
- #flyway:
+ #flyway: 
    #  baselineOnMigrate: true se ja houvessem tabelas
 
  #security:
