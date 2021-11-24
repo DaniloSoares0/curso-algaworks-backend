@@ -82,7 +82,7 @@ public class LancamentoResource {
 	}
 	
 	@PutMapping("/{codigo}")
-   // @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and hasAuthority('SCOPE_write')" )
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and hasAuthority('SCOPE_write')" )
 	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lacamento) {
 		try {
 			return ResponseEntity.ok(lancamentoService.atualizar(codigo,lacamento));
