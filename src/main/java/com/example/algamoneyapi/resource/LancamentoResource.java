@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,6 +34,8 @@ import com.example.algamoneyapi.repository.filter.LancamentoFilter;
 import com.example.algamoneyapi.repository.projection.ResumoLancamento;
 import com.example.algamoneyapi.service.LancamentoService;
 import com.example.algamoneyapi.service.exception.PessoaInexistenteOuInativaException;
+
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/lancamentos")
@@ -76,6 +79,20 @@ public class LancamentoResource {
 		Lancamento lancamentoSalvo = lancamentoService.save(lancamento);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalvo.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
+	}
+	
+	@PutMapping("/{codigo}")
+   // @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and hasAuthority('SCOPE_write')" )
+	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lacamento) {
+		try {
+			return ResponseEntity.ok(lancamentoService.atualizar(codigo,lacamento));
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (PessoaInexistenteOuInativaException e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		} catch (Exception e) {
+		}
+		return null;
 	}
 	
 	@DeleteMapping("/{codigo}")

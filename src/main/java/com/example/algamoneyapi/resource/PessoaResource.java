@@ -1,7 +1,5 @@
 package com.example.algamoneyapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -23,10 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.algamoneyapi.event.RecursoCriadoEvent;
-import com.example.algamoneyapi.model.Lancamento;
 import com.example.algamoneyapi.model.Pessoa;
 import com.example.algamoneyapi.repository.PessoaRepository;
-import com.example.algamoneyapi.repository.filter.LancamentoFilter;
 import com.example.algamoneyapi.repository.filter.PessoaFilter;
 import com.example.algamoneyapi.service.PessoaService;
 

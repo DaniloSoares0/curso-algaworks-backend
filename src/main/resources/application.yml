@@ -16,7 +16,6 @@ spring:
 
  #flyway: 
    #  baselineOnMigrate: true se ja houvessem tabelas
-
  #security:
  # oauth2:
  #  resourceserver:
